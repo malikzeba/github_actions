@@ -1,0 +1,26 @@
+name: Test Env Vars
+
+on:
+  workflow_dispatch:
+
+env:
+  GLOBAL_VAR: HelloWorld
+
+jobs:
+  print-variables:
+    runs-on: ubuntu-latest
+    env:
+      JOB_VAR: JobLevel
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Show variables
+        run: |
+          echo "Global: $GLOBAL_VAR"
+          echo "Job:   $JOB_VAR"
+          echo "Step:  $SECRET_VAR"
+          echo "Secret:$SECRET_VAL"
+        env:
+          SECRET_VAR: StepSecret
+          SECRET_VAL: ${{ secrets.MY_SECRET }}
